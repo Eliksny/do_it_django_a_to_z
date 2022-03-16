@@ -1,11 +1,16 @@
 from django.shortcuts import render
-#from django.http import HttpResponse
 from .models import Post
+from django.views.generic import ListView
 
-def index(request):
-    posts = Post.objects.all().order_by('-pk')
-    #return HttpResponse("안녕하세요 Blog에 오신걸 환영합니다")
-    return render(request, 'blog/index.html', {'posts' : posts,})
+class PostList(ListView):
+    model = Post
+    # template_name = 'blog/index.html'
+    ordering = '-pk'
+
+# def index(request):
+#    posts = Post.objects.all().order_by('-pk')
+#
+#    return render(request, 'blog/index.html', {'posts' : posts,})
 
 def single_post_page(request, pk):
     post = Post.objects.get(pk=pk)
